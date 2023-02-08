@@ -36,8 +36,6 @@ input bookInput {
     image: String
     link: String
     title: String!
-}
-
-`
+}`
 
 module.exports = typeDefs;

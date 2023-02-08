@@ -36,7 +36,6 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    //   NEED TO ADD LOGIN STUFF
     saveBook: async (parent, { book }, context) => {
       if (context.user) {
         const userData = await User.findOneAndUpdate(
