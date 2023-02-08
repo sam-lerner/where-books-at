@@ -7,15 +7,14 @@ import { removeBookId } from '../utils/localStorage';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
-import { deleteBook } from '../../../server/controllers/user-controller';
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(QUERY_ME);
-  const user = data?.me || data?.user || {};
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const userData = data?.me || data?.user || {};
+  const [deleteBook, { error }] = useMutation(REMOVE_BOOK);
 
   // Function to check login status
-  if (!user?.username) {
+  if (!userData?.username) {
     return (
       <h4>
         You need to be logged in to see this. Use the navigation links above to
@@ -43,7 +42,7 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
