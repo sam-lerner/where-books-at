@@ -37,7 +37,7 @@ const SavedBooks = () => {
 
       removeBookId(bookId);
     } catch (err) {
-      console.error(err);
+      console.error(JSON.parse(JSON.stringify(err)));
     }
   };
 
