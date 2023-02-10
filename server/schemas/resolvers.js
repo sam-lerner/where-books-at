@@ -36,23 +36,32 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveBook: async (parent, { book }, context) => {
+    saveBook: async (parent, args, context) => {
+      console.log(args)
       if (context.user) {
-        const userData = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedBooks: book } },
-          { new: true }
-        )
-        return userData;
+        try {
+          const userData = await User.findByIdAndUpdate(
+            context.user._id,
+            { $push: { savedBooks: args.book } },
+            { new: true }
+          ) 
+          console.log(userData)
+          return userData;
+
+        } catch (err) {
+          console.error(JSON.parse(JSON.stringify(err)));
+        }
       }
     },
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
+        console.log(bookId)
         const userData = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { savedBooks: { bookId: bookId } } },
           { new: true }
         )
+        console.log(userData)
         return userData;
       }
     }

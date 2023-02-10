@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_BOOK = gql`
-mutation saveBook($bookData: bookInput) {
-    saveBook(book: $bookData) {
+mutation saveBook($bookToSave: bookInput, $id:ID!) {
+    saveBook(book: $bookToSave, _id:$id) {
         username
         email
         bookCount
@@ -43,8 +43,8 @@ mutation saveBook($bookData: bookInput) {
 }
 `;
 export const REMOVE_BOOK = gql`
-mutation removeBook($bookId: String!) {
-    removeBook(bookId: $bookId) {
+mutation removeBook($bookId: String!, $id:ID!) {
+    removeBook(bookId: $bookId, _id:$id) {
         username
         email
         bookCount
